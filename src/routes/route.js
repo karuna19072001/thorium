@@ -54,19 +54,45 @@ let arr =
            "bookings": []
        },
    ]
-   router.post('/player', function (req, res) {
-    let details = req.body.name1.name
-    let inputDetails = req.body.name1
-    for (let i = 0; i < arr.length; i++) {
-    if (details === arr[i].name) {
-    console.log("Data already exist")
-    res.send("Data already exist")
+//    router.post('/player', function (req, res) {
+//     let details = req.body.name1.name
+//     let inputDetails = req.body.name1
+//     for (let i = 0; i < arr.length; i++) {
+//     if (details === arr[i].name) {
+//     console.log("Data already exist")
+//     res.send("Data already exist")
+//     }
+//     else if (i === arr.length - 1) {
+//     arr.push( inputDetails )
+//     res.send({arr})
+//     } 
+//     }  
+//     res.send(  { data: players , status: true }  )
+// })
+
+
+router.post("/players/:playerName/bookings/:bookingId", function(req, res) {
+    let play = req.params.playerName
+    let book =req.params.bookingId
+    
+    const index = players.findIndex(object => object.name === play)
+    if(index === -1){
+        res.send('player does not exists')   
     }
-    else if (i === arr.length - 1) {
-    arr.push( inputDetails )
-    res.send({arr})
-    } 
-    }  
-    res.send(  { data: players , status: true }  )
+
+    else{
+    let a = players[index].bookings
+    const i = a.findIndex(object => object.bookingNumber == book)
+        if(i === -1 ){
+            a.push(req.body)
+            res.send(  players[index] )
+           
+        }
+        else{
+            res.send("booking exists")
+        }
+    }
+
+       
 })
 module.exports = router;
