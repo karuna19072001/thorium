@@ -36,6 +36,6 @@ router.get("/dateManipulations", function (req, res) {
     console.log(x)
 
     res.send({ msg: "all good"})
-})
+},  { timestamps: true })
 
 module.exports = router;
