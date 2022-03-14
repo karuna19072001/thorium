@@ -21,14 +21,14 @@ const createBook = async function (req, res) {
 // TRY CATCH SUMMARY:
 // if you get an error in try block, it will not execute the next lines of code inside try
 // instead it will jump into catch block and execute the code there
-// code in catch block is normallly not executed
+// code in catch block is normally not executed
 //rather catch block is only executed if there is error in try block
 // the error( along with message++) gets sent to catch block incase there is an error
 
 
 
 
-// Specific HTTP codes(only impt ones)
+// Specific HTTP codes(only import ones)
 // 2xx- Success
 // 4xx- something gone wrong..and problem is on user side(client side)
 // 5xx- server side problems
@@ -40,7 +40,7 @@ const createBook = async function (req, res) {
 // -- try catch ....// "SERVER ERROR"...500
 
 // -- ALL GOOD... //status(200)- OK
-// --- "ALL GOOD and A NEW RESOURCE WAS SUCCEFULLY CREATED" ...status(201)..e.g a new user registers herself successfully
+// --- "ALL GOOD and A NEW RESOURCE WAS SUCCESSFULLY CREATED" ...status(201)..e.g a new user registers herself successfully
 
 
 

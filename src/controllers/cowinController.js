@@ -40,7 +40,7 @@ let getDistricts = async function (req, res) {
 
 let getByPin = async function (req, res) {
     try {
-        let pin = req.query.pincode
+        let pin = req.query.pinCode
         let date = req.query.date
         console.log(`query params are: ${pin} ${date}`)
         var options = {
@@ -48,7 +48,7 @@ let getByPin = async function (req, res) {
             url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=${pin}&date=${date}`
         }
         let result = await axios(options)
-        console.log(result.data)
+        console.log(result)
         res.status(200).send({ msg: result.data })
     }
     catch (err) {
@@ -56,6 +56,32 @@ let getByPin = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+
+
+
+// WRITE A GET API TO GET THE LIST OF ALL THE "vaccination sessions by district id" for any given district id and for any given date
+
+
+let getDistrictSession = async function (req, res) {
+    try {
+        let districtId = req.query.district_id
+        let date = req.query.date
+        let options = {
+            method : "get",
+            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${districtId}&date=${date}`
+        }
+        let result = await axios(options);
+        console.log(result)
+        let data = result.data
+        res.status(200).send({ msg: data, status: true })
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ msg: err.message })
+    }
+}
+
+
 
 let getOtp = async function (req, res) {
     try {
@@ -78,8 +104,25 @@ let getOtp = async function (req, res) {
     }
 }
 
+let memeHandler = async function (req, res) {
+    try {
+    let options ={
+    method: "POST",
+ url: `https://api.imgflip.com/caption_image?template_id=181913649&text0=HELLO&text1=FUNCTIONUPISAWESOME&username=chewie12345&password=meme@123`
+    }
+  let result = await axios(options)
+        res.send({ data: result.data })
+    }
+    catch (error) {
+console.log(error)
+res.status(500).send({ status: false,msg: "server error"})
+    }
+}
+
 
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
 module.exports.getByPin = getByPin
+module.exports.getDistrictSession = getDistrictSession
 module.exports.getOtp = getOtp
+module.exports.memeHandler = memeHandler
