@@ -1,26 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const CowinController= require("../controllers/cowinController")
-const assignmentController= require("../controllers/assignmentController")
+const AuthorController=require("../controllers/authorController")
+const BlogsController=require("../controllers/blogController")
+const Middleware=require("../middlewares/middleware")
 
 
 
-router.get("/test-me", function (req, res) {
-    res.send("My first ever api!")
-})
+//Phase1:
+router.post("/authors", AuthorController.createAuthor )
+
+router.post("/blogs",Middleware.authenticationUser, BlogsController.createBlogs )
+
+router.get("/blogs",Middleware.authenticationUser, BlogsController.getBlogs)
+
+router.put("/blogs/:blogId/:authorId",Middleware.authenticationUser, Middleware.authorizationUser, BlogsController.updateBlogs)
+
+router.delete("/blogs/:blogId/:authorId",Middleware.authenticationUser, Middleware.authorizationUser, BlogsController.deleteBlogById)
+
+router.delete("/blogs/:authorId",Middleware.authenticationUser, Middleware.authorizationUser,BlogsController.deleteBlogByQueryParams)
 
 
-router.get("/cowin/states", CowinController.getStates)
-
-router.get("/cowin/districtsInState/:stateId", CowinController.getDistricts)
-router.get("/cowin/getByPin", CowinController.getByPin)
-router.get("/cowin/getByDistrict", CowinController.getDistrictSession)
-router.get("/getSortedCities", assignmentController.getSortedCities)
-router.post("/meme", CowinController.memeHandler)
-router.post("/cowin/getOtp", CowinController.getOtp)
-
-// WRITE A GET API TO GET THE LIST OF ALL THE "vaccination sessions by district id" for any given district id and for any given date
-
-
+//Phase2:
+router.post("/login", AuthorController.loginUser)
 
 module.exports = router;
